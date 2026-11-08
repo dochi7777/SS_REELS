@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ededeb">
+  <meta name="description" content="쓱싹의민족 홍보 영상">
+  <title>쓱싹의민족 · 브랜드 영상</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="video.css">
+</head>
+<body>
+  <main class="showcase">
+    <div class="iphone" aria-label="아이폰 목업">
+      <span class="side-button silent" aria-hidden="true"></span>
+      <span class="side-button volume-up" aria-hidden="true"></span>
+      <span class="side-button volume-down" aria-hidden="true"></span>
+      <span class="side-button power" aria-hidden="true"></span>
+      <div class="phone-top" aria-hidden="true"><span class="speaker"></span><span class="camera"></span></div>
+      <div class="screen">
+        <video autoplay muted loop playsinline preload="auto" aria-label="쓱싹의민족 홍보 영상. 누르면 재생 또는 일시정지됩니다." tabindex="0">
+          <source src="assets/videos/ssukssak-reels-1.mp4" type="video/mp4">
+          이 브라우저에서는 영상을 재생할 수 없습니다. <a href="assets/videos/ssukssak-reels-1.mp4">영상 파일 열기</a>
+        </video>
+      </div>
+      <div class="phone-bottom" aria-hidden="true"><span></span></div>
+    </div>
+    <a class="website-link" href="index.html">쓱싹의민족 웹사이트 방문하기 ↗</a>
+    <p class="playback-note">영상을 누르면 재생·일시정지 · <button type="button" id="sound">소리 켜기</button></p>
+    <p class="error" role="status" hidden>영상을 재생할 수 없습니다. <a href="assets/videos/ssukssak-reels-1.mp4">영상 파일 열기</a></p>
+  </main>
+  <script>
+    const video = document.querySelector('video');
+    const sound = document.getElementById('sound');
+    const error = document.querySelector('.error');
+    async function togglePlayback() {
+      if (video.paused) { try { await video.play(); error.hidden = true; } catch { error.hidden = false; } }
+      else video.pause();
+    }
+    video.addEventListener('click', togglePlayback);
+    video.addEventListener('keydown', event => {
+      if (event.key === ' ' || event.key === 'Enter') { event.preventDefault(); togglePlayback(); }
+    });
+    sound.addEventListener('click', () => { video.muted = !video.muted; sound.textContent = video.muted ? '소리 켜기' : '소리 끄기'; });
+    video.addEventListener('error', () => { error.hidden = false; });
+  </script>
+</body>
+</html>
